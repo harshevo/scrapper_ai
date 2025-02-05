@@ -1,0 +1,23 @@
+
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'australia-southeast1-docker.pkg.dev/getstrollr/artifact-hub-ml-tool/strollr-admin-ml-tool:latest', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'australia-southeast1-docker.pkg.dev/getstrollr/artifact-hub-ml-tool/strollr-admin-ml-tool:latest']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - 'strollr-admin-ml-tool'
+  - '--image'
+  - 'australia-southeast1-docker.pkg.dev/getstrollr/artifact-hub-ml-tool/strollr-admin-ml-tool:latest'
+  - '--region'
+  - 'australia-southeast1'
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+
+
+
+#edit 6 to test
